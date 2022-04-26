@@ -8,7 +8,7 @@ function setAttributes(element, attributes) {
     for (const key in attributes) {
         element.setAttribute(key, attributes[key])
     }
-}
+};
 
 // Create Elements for Links & Photos, Add to DOM
 function displayPhotos() {
@@ -19,14 +19,14 @@ function displayPhotos() {
         setAttributes(item, {
             href: photo.links.html,
             target: '_blank',
-        })
+        });
         // Create <img> for photo
         const img = document.createElement('img');
         setAttributes(img, {
             src: photo.urls.regular,
             alt: photo.alt_description,
             title: photo.alt_description,
-        })
+        });
         // Put <img> inside <a>, then put both inside image container element
         item.appendChild(img);
         imageContainer.appendChild(item);
@@ -47,7 +47,15 @@ async function getPhotos() {
     } catch (error) {
         // Catch Error Here
     }
-}
+};
+
+// Check to see if scrolling near bottom of page, Load More Photos
+window.addEventListener('scroll', () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000) {
+        getPhotos();
+        console.log('load more');
+    }
+})
 
 // On load
 getPhotos();
